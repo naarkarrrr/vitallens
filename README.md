@@ -1,113 +1,116 @@
+<<<<<<< HEAD
 📌 VitalLens Ai
 AI-Augmented Hospital Management System
+=======
+# 📌 **HMS-Core Enhanced**
+>>>>>>> b97c529cecbc3a8c91ac7c4f5829001351799f1a
 
-Built for MumbaiHacks 2025
+### *AI-Augmented Hospital Management System*
 
-🚀 Overview
+Built for **MumbaiHacks 2025**
 
+<<<<<<< HEAD
 VitalLens Ai is an enterprise-grade Hospital Management System designed with AI assistance, clinical intelligence, scalable Firestore architecture, and wellness-oriented D2C features.
 This system is built using Firebase Studio, React + Tailwind, Cloud Functions, and Firestore.
+=======
+---
+>>>>>>> b97c529cecbc3a8c91ac7c4f5829001351799f1a
 
-The platform can manage patients, encounters, beds, inventory, prescriptions, labs, staff, insurance, billing, and much more — while providing AI-powered forecasting, recommendations, and automation.
+## 🚀 Overview
+
+**HMS-Core Enhanced** is an enterprise-grade Hospital Management System designed with **AI assistance, clinical intelligence, scalable Firestore architecture, and wellness-oriented D2C features**.
+This system is built using **Firebase Studio**, React + Tailwind, Cloud Functions, and Firestore.
+
+The platform can manage patients, encounters, beds, inventory, prescriptions, labs, staff, insurance, billing, and much more — while providing **AI-powered forecasting, recommendations, and automation**.
 
 This version includes automated data ingestion from real synthetic healthcare datasets to power forecasting, dashboards, and analytics.
 
-🧠 Key Features
-🔵 1. AI Layer
+---
+
+# 🧠 Key Features
+
+## 🔵 **1. AI Layer**
 
 Built to impress AI engineers & CTOs.
 
-AI Decision Engine
-Weighted scoring model + LLM-ready scaffolding
+* **AI Decision Engine**
+  Weighted scoring model + LLM-ready scaffolding
+* **Auto Encounter Summary Generator**
+* **High-Risk Pattern Detection**
+* **Bed Shortage Prediction**
+* **Inventory Forecasting Engine**
+* **Agent-style automations (task-level actions)**
 
-Auto Encounter Summary Generator
+---
 
-High-Risk Pattern Detection
-
-Bed Shortage Prediction
-
-Inventory Forecasting Engine
-
-Agent-style automations (task-level actions)
-
-🩺 2. Clinical Operations
+## 🩺 **2. Clinical Operations**
 
 Built for doctors, nurses, and hospital admins.
 
-Patient registration & tracking
+* Patient registration & tracking
+* OPD / IPD encounters
+* Vitals recording
+* Diagnoses + ICD-10
+* Prescriptions
+* Lab results
+* Bed & ward management
+* Equipment tracking
 
-OPD / IPD encounters
+---
 
-Vitals recording
+## 💊 **3. Pharmacy & Inventory**
 
-Diagnoses + ICD-10
+Designed to align with HealthTech founders like **PharmEasy**.
 
-Prescriptions
+* Live stock monitoring
+* Auto inventory deduction on prescriptions
+* Low-stock alerts
+* Reorder recommendations
+* Supplier integration scaffolding
 
-Lab results
+---
 
-Bed & ward management
+## 💸 **4. Finance & BI**
 
-Equipment tracking
+* Billing dashboard
+* Insurance workflow
+* Cost calculator / affordability scoring
+* Reports dashboard
+* System health dashboard
 
-💊 3. Pharmacy & Inventory
+---
 
-Designed to align with HealthTech founders like PharmEasy.
-
-Live stock monitoring
-
-Auto inventory deduction on prescriptions
-
-Low-stock alerts
-
-Reorder recommendations
-
-Supplier integration scaffolding
-
-💸 4. Finance & BI
-
-Billing dashboard
-
-Insurance workflow
-
-Cost calculator / affordability scoring
-
-Reports dashboard
-
-System health dashboard
-
-🌿 5. Wellness & D2C Layer
+## 🌿 **5. Wellness & D2C Layer**
 
 Inspired by Dr. Vaidya’s D2C philosophy.
 
-Patient wellness dashboard
+* Patient wellness dashboard
+* Trends (BMI, vitals, activity placeholders)
+* Wellness recommendation engine
+* Notification system for reminders
 
-Trends (BMI, vitals, activity placeholders)
+---
 
-Wellness recommendation engine
-
-Notification system for reminders
-
-🧱 6. Enterprise Architecture
+## 🧱 **6. Enterprise Architecture**
 
 Built to impress industry CTOs like from HCLTech.
 
-Strict RBAC with Custom Claims
+* Strict RBAC with Custom Claims
+* Unified audit logs
+* System monitor dashboard
+* Clean modular code
+* Firestore indexing strategy
+* Cloud Functions with structured JSON responses
 
-Unified audit logs
+---
 
-System monitor dashboard
+# 📦 **Dataset Integration**
 
-Clean modular code
+### The project uses a unified data import pipeline via:
 
-Firestore indexing strategy
-
-Cloud Functions with structured JSON responses
-
-📦 Dataset Integration
-The project uses a unified data import pipeline via:
+```
 seedHMSData()
-
+```
 
 This Cloud Function:
 
@@ -118,26 +121,37 @@ This Cloud Function:
 ✔ Updates inventory and reorder flags
 ✔ Seeds AI forecasting data
 
-Included Files in Dataset
+### Included Files in Dataset
+
+```
 dataset_A_admissions.csv     → patients, encounters, beds
 dataset_B_consumption.csv    → prescriptions + inventory usage
 dataset_C_inventory.csv      → inventory master
 dataset_D_external.csv       → AI forecasting data
 reorder_list.csv             → low stock alerts
+```
 
+Notebooks (`model1–4.ipynb`) contain prototype ML logic for forecasting and can be converted into Cloud Functions.
 
-Notebooks (model1–4.ipynb) contain prototype ML logic for forecasting and can be converted into Cloud Functions.
+---
 
-🏗 Tech Stack
-Layer	Technology
-Frontend	React + TailwindCSS
-Backend	Firebase Cloud Functions
-Database	Firestore (NoSQL)
-Auth	Firebase Auth + Custom Claims
-Storage	Firebase Storage
-AI Scaffolding	Python → Converted to Node.js funcs
-Deployment	Firebase Hosting / Studio
-📁 Repository Structure
+# 🏗 **Tech Stack**
+
+| Layer          | Technology                          |
+| -------------- | ----------------------------------- |
+| Frontend       | React + TailwindCSS                 |
+| Backend        | Firebase Cloud Functions            |
+| Database       | Firestore (NoSQL)                   |
+| Auth           | Firebase Auth + Custom Claims       |
+| Storage        | Firebase Storage                    |
+| AI Scaffolding | Python → Converted to Node.js funcs |
+| Deployment     | Firebase Hosting / Studio           |
+
+---
+
+# 📁 **Repository Structure**
+
+```
 /src
   /pages (40 pages)
   /components
@@ -160,38 +174,60 @@ Deployment	Firebase Hosting / Studio
 
 /storage
   MUMBAI.zip
+```
 
-🔐 Role-Based Access
-Role	Access
-Admin	Full system access
-Doctor	Patients, encounters, prescriptions, labs
-Nurse	Vitals, beds, wards, ICU
-Lab Tech	Lab modules
-Pharmacist	Inventory + prescriptions
-Staff	Equipment + basic inventory
+---
 
-Implemented via custom claims + Firestore rules.
+# 🔐 **Role-Based Access**
 
-⚙️ How to Seed Data
+| Role       | Access                                    |
+| ---------- | ----------------------------------------- |
+| Admin      | Full system access                        |
+| Doctor     | Patients, encounters, prescriptions, labs |
+| Nurse      | Vitals, beds, wards, ICU                  |
+| Lab Tech   | Lab modules                               |
+| Pharmacist | Inventory + prescriptions                 |
+| Staff      | Equipment + basic inventory               |
+
+Implemented via **custom claims + Firestore rules**.
+
+---
+
+# ⚙️ **How to Seed Data**
 
 Upload the ZIP to Firebase Storage and run:
 
+```
 firebase functions:shell
 > seedHMSData()
-
+```
 
 This will populate all collections with synthetic but realistic hospital data.
 
-🎯 Why This Project Is Unique
+---
+
+# 🎯 **Why This Project Is Unique**
 
 This HMS is not just CRUD pages — it is:
 
-✔ AI-integrated
-✔ Dataset-driven
-✔ Enterprise-clean
-✔ HealthTech-practical
-✔ D2C-friendly for patients
-✔ Built to scale
-✔ Built to impress judges
+### ✔ AI-integrated
+
+<<<<<<< HEAD
+Every module reflects real-world hospital workflows while layering AI on top of structured health data.
+=======
+### ✔ Dataset-driven
+
+### ✔ Enterprise-clean
+
+### ✔ HealthTech-practical
+
+### ✔ D2C-friendly for patients
+
+### ✔ Built to scale
+
+### ✔ Built to impress judges
 
 Every module reflects real-world hospital workflows while layering AI on top of structured health data.
+
+---
+>>>>>>> b97c529cecbc3a8c91ac7c4f5829001351799f1a
