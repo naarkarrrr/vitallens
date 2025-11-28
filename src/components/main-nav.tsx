@@ -91,6 +91,13 @@ const navSections = [
     ],
   },
   {
+    title: 'Reporting',
+    icon: BarChart,
+    links: [
+        { href: '/reports_dashboard', label: 'Reports', icon: FileText },
+    ]
+  },
+  {
     title: 'AI & Integrations',
     icon: BrainCircuit,
     subSections: [
@@ -118,7 +125,7 @@ export function MainNav() {
   const pathname = usePathname();
 
   return (
-    <ScrollArea className="h-[calc(100vh-80px)] w-full">
+    <ScrollArea className="h-full w-full">
       <div className="flex w-full flex-col gap-2 p-4 pt-0">
         {navSections.map((section) => (
           <div key={section.title}>
@@ -145,7 +152,6 @@ export function MainNav() {
                   <AccordionItem value={subSection.title} key={subSection.title} className="border-b-0">
                     <AccordionTrigger className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:no-underline [&[data-state=open]]:bg-accent [&[data-state=open]]:text-accent-foreground">
                       <span className='text-sm font-normal'>{subSection.title}</span>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
                     </AccordionTrigger>
                     <AccordionContent className="pl-4 pb-0 pt-1">
                       {subSection.links.map((link) => (
