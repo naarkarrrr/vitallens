@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview AI flow for generating a wellness plan.
@@ -15,8 +16,31 @@ export const GenerateWellnessPlanOutputSchema = z.object({
 });
 export type GenerateWellnessPlanOutput = z.infer<typeof GenerateWellnessPlanOutputSchema>;
 
+// This is a placeholder implementation.
 export async function generateWellnessPlan(input: GenerateWellnessPlanInput): Promise<GenerateWellnessPlanOutput> {
-  // Placeholder implementation
   console.log('Generating wellness plan for patient:', input.patientId);
-  return { plan: 'Drink more water and get 8 hours of sleep.' };
+
+  // In a real app, you would fetch patient data and use an LLM.
+  // Here's a mock response for demonstration.
+  const plan = `
+**Hydration**
+* Aim to drink 8-10 glasses of water daily.
+* Start your day with a glass of warm water to kickstart your metabolism.
+
+**Nutrition**
+* Incorporate more leafy greens like spinach and kale into your meals.
+* Reduce intake of processed sugars and fried foods.
+* Consider a balanced diet with whole grains, lean proteins, and plenty of fruits and vegetables.
+
+**Physical Activity**
+* Aim for at least 30 minutes of moderate exercise, like brisk walking, 5 days a week.
+* Include stretching or yoga to improve flexibility and reduce stress.
+
+**Stress Management**
+* Practice mindfulness or meditation for 10 minutes each day.
+* Ensure you get 7-8 hours of quality sleep per night.
+* Limit screen time before bed to improve sleep quality.
+`;
+
+  return { plan: plan.trim() };
 }

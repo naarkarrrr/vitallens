@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -35,7 +36,8 @@ import {
   Wallet,
   Activity,
   Server,
-  ClipboardList
+  ClipboardList,
+  User,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -127,6 +129,7 @@ const navSections = [
           { href: '/ai_decision_engine', label: 'Decision Engine', icon: Bot },
           { href: '/ai_forecast', label: 'Forecasting', icon: BarChart },
           { href: '/wellness_recommendations', label: 'Wellness Plans', icon: Activity },
+          { href: '/ai_agent_panel', label: 'AI Agent Panel', icon: Settings },
         ],
       },
       {
@@ -143,7 +146,6 @@ const navSections = [
           { href: '/fhir_api_panel', label: 'FHIR API', icon: Plug },
           { href: '/supplier_integration', label: 'Supplier API', icon: Truck },
           { href: '/iot_integration', label: 'IoT Vitals', icon: Wifi },
-          { href: '/ai_agent_panel', label: 'AI Agent (Legacy)', icon: Settings },
         ],
       },
     ],
