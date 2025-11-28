@@ -29,7 +29,7 @@ export default function UserProfilePage() {
                     <Card>
                         <CardHeader className="items-center text-center">
                             <Avatar className="h-24 w-24 mb-4">
-                                {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User" />}
+                                {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User" data-ai-hint="user avatar" />}
                                 <AvatarFallback className="text-4xl">{user?.name.substring(0,2)}</AvatarFallback>
                             </Avatar>
                             <CardTitle>{user?.name}</CardTitle>
