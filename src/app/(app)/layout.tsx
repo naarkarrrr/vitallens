@@ -29,7 +29,7 @@ export default function AppLayout({
             className="flex items-center gap-2 font-semibold"
           >
             <Icons.logo className="h-6 w-6 text-primary" />
-            <span className="">HMS-Core-Enhanced</span>
+            <span className="">VitalLens Ai</span>
           </Link>
         </SidebarHeader>
         <SidebarContent>

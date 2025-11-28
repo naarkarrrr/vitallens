@@ -4,8 +4,8 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'HMS-Core-Enhanced',
-  description: 'A Hospital Management System by Firebase Studio',
+  title: 'VitalLens Ai',
+  description: 'AI-Augmented Hospital Management by VitalLens Ai',
 };
 
 export default function RootLayout({
