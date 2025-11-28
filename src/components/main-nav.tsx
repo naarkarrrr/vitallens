@@ -27,6 +27,7 @@ import {
   Truck,
   Wifi,
   Hospital,
+  ChevronDown,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -131,7 +132,7 @@ export function MainNav() {
                 href={link.href}
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                  pathname === link.href && 'bg-accent text-primary'
+                  pathname === link.href && 'bg-accent text-accent-foreground font-medium'
                 )}
               >
                 <link.icon className="h-4 w-4" />
@@ -142,17 +143,18 @@ export function MainNav() {
               <Accordion type="multiple" defaultValue={section.subSections.filter(s => s.defaultOpen).map(s => s.title)} className="w-full">
                 {section.subSections.map((subSection) => (
                   <AccordionItem value={subSection.title} key={subSection.title} className="border-b-0">
-                    <AccordionTrigger className="py-2 text-muted-foreground hover:no-underline hover:text-primary justify-start gap-3 [&[data-state=open]>svg]:hidden">
-                       {subSection.title}
+                    <AccordionTrigger className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:no-underline [&[data-state=open]]:bg-accent [&[data-state=open]]:text-accent-foreground">
+                      <span className='text-sm font-normal'>{subSection.title}</span>
+                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
                     </AccordionTrigger>
-                    <AccordionContent className="pl-4 pb-0">
+                    <AccordionContent className="pl-4 pb-0 pt-1">
                       {subSection.links.map((link) => (
                         <Link
                           key={link.href}
                           href={link.href}
                           className={cn(
                             'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
-                            pathname === link.href && 'bg-accent text-primary'
+                            pathname === link.href && 'bg-accent text-accent-foreground font-medium'
                           )}
                         >
                           <link.icon className="h-4 w-4" />
