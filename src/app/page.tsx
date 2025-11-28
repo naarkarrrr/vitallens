@@ -11,7 +11,7 @@ export default function LoginPage() {
       <Card className="mx-auto w-full max-w-sm">
         <CardHeader className="text-center">
           <Icons.logo className="mx-auto h-12 w-12 text-primary" />
-          <CardTitle className="mt-4 text-2xl font-bold">MediTrack Pro</CardTitle>
+          <CardTitle className="mt-4 text-2xl font-bold">HMS-Core-Enhanced</CardTitle>
           <CardDescription>Enter your credentials to access your account</CardDescription>
         </CardHeader>
         <CardContent>

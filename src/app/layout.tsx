@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'MediTrack Pro',
+  title: 'HMS-Core-Enhanced',
   description: 'A Hospital Management System by Firebase Studio',
 };
 
