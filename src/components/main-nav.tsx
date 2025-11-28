@@ -38,6 +38,8 @@ import {
   Server,
   ClipboardList,
   User,
+  Thermometer,
+  CloudRain,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -130,6 +132,8 @@ const navSections = [
           { href: '/ai_forecast', label: 'Forecasting', icon: BarChart },
           { href: '/wellness_recommendations', label: 'Wellness Plans', icon: Activity },
           { href: '/ai_agent_panel', label: 'AI Agent Panel', icon: Settings },
+          { href: '/admission_metrics', label: 'Admission Metrics', icon: Users },
+          { href: '/environment_factors', label: 'Environment Factors', icon: CloudRain },
         ],
       },
       {
