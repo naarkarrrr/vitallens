@@ -1,3 +1,5 @@
+
+'use client';
 import {
     Card,
     CardContent,
@@ -8,6 +10,8 @@ import {
   import { Bed, User, CircleDot, Monitor, HeartPulse, Wind } from "lucide-react"
   import { cn } from "@/lib/utils"
   import { beds } from "@/lib/placeholder-data"
+  import { Area, AreaChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
   
   const statusColors = {
     Available: "bg-green-100 border-green-400 text-green-800",
@@ -16,6 +20,15 @@ import {
   }
   
   const icuBeds = beds.filter(b => b.ward === 'ICU');
+
+  const dailyAdmissionsData = [
+    { date: '2023-01-01', total: 22, icu: 5 }, { date: '2023-01-02', total: 25, icu: 6 },
+    { date: '2023-01-03', total: 18, icu: 4 }, { date: '2023-01-04', total: 28, icu: 7 },
+    { date: '2023-01-05', total: 20, icu: 5 }, { date: '2023-01-06', total: 31, icu: 8 },
+    { date: '2023-01-07', total: 24, icu: 6 }, { date: '2023-01-08', total: 19, icu: 4 },
+    { date: '2023-01-09', total: 26, icu: 7 }, { date: '2023-01-10', total: 29, icu: 8 },
+    { date: '2023-01-11', total: 21, icu: 5 }, { date: '2023-01-12', total: 23, icu: 6 },
+  ];
   
   export default function IcuDashboardPage() {
     const occupiedBeds = icuBeds.filter(b => b.status === 'Occupied').length;
@@ -69,6 +82,26 @@ import {
                   </CardContent>
               </Card>
           </div>
+          
+          <Card>
+              <CardHeader>
+                  <CardTitle>Daily Total vs ICU Admissions</CardTitle>
+                  <CardDescription>A summary of total patient admissions versus those requiring ICU care.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <ChartContainer config={{}} className="h-[300px] w-full">
+                      <LineChart data={dailyAdmissionsData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="date" tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })} />
+                          <YAxis />
+                          <ChartTooltip content={<ChartTooltipContent />} />
+                          <Legend />
+                          <Line type="monotone" dataKey="total" name="Total Patients" stroke="hsl(var(--primary))" strokeWidth={2} />
+                          <Line type="monotone" dataKey="icu" name="ICU Patients" stroke="hsl(var(--destructive))" strokeWidth={2} />
+                      </LineChart>
+                  </ChartContainer>
+              </CardContent>
+          </Card>
   
           <Card>
               <CardHeader>
