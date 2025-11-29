@@ -1,3 +1,4 @@
+
 'use client';
 
 import { BarChart, LineChart as LineChartIcon } from "lucide-react"
@@ -9,11 +10,20 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Bar, BarChart as BarChartComponent, Line, LineChart as LineChartComponent, CartesianGrid, XAxis, YAxis, Legend } from "recharts"
+import { cn } from "@/lib/utils";
 
 const admissionData = [
     { date: "Mon", admissions: 12 },
@@ -45,6 +55,34 @@ const monthlyAdmissionTrendData = [
     { month: "November", "Average Patients": 73.8 },
     { month: "December", "Average Patients": 74.9 },
 ]
+
+const correlationData = {
+    labels: [
+      "total_admissions",
+      "ICU_patients",
+      "oxygen_liters_used",
+      "saline_units_used",
+      "n95_used",
+      "ventilators_in_use",
+    ],
+    matrix: [
+      [1.0, 0.0016, -0.00047, 0.0052, -0.0097, 0.00095],
+      [0.0016, 1.0, 0.0093, -0.0036, -0.0038, -0.0031],
+      [-0.00047, 0.0093, 1.0, -0.0033, 0.016, 0.0098],
+      [0.0052, -0.0036, -0.0033, 1.0, -0.0085, -0.0072],
+      [-0.0097, -0.0038, 0.016, -0.0085, 1.0, 0.0031],
+      [0.00095, -0.0031, 0.0098, -0.0072, 0.0031, 1.0],
+    ],
+};
+
+const getBackgroundColor = (value: number) => {
+    if (value >= 0.8) return 'bg-blue-900 text-white';
+    if (value >= 0.6) return 'bg-blue-800 text-white';
+    if (value >= 0.4) return 'bg-blue-700 text-white';
+    if (value >= 0.2) return 'bg-blue-600 text-white';
+    if (value > 0) return 'bg-blue-200 text-blue-900';
+    return 'bg-blue-50 text-blue-900';
+};
 
 
 export default function AIForecastPage() {
@@ -110,6 +148,43 @@ export default function AIForecastPage() {
                         <Line type="monotone" dataKey="Average Patients" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} />
                     </LineChartComponent>
                 </ChartContainer>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Correlation Matrix — Patients vs Resource Consumption</CardTitle>
+                <CardDescription>Visualizing the relationships between patient metrics and resource usage.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="overflow-x-auto">
+                    <Table className="min-w-full divide-y divide-gray-200">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead className="w-1/6"></TableHead>
+                                {correlationData.labels.map((label) => (
+                                    <TableHead key={label} className="text-xs -rotate-45 origin-left-bottom text-right h-24">
+                                       <span className="inline-block translate-y-1/2">{label}</span>
+                                    </TableHead>
+                                ))}
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {correlationData.matrix.map((row, i) => (
+                                <TableRow key={i}>
+                                    <TableHead className="text-xs font-bold text-right">{correlationData.labels[i]}</TableHead>
+                                    {row.map((value, j) => (
+                                        <TableCell
+                                            key={j}
+                                            className={cn("text-center font-mono text-xs p-1", getBackgroundColor(value))}
+                                        >
+                                            {value.toFixed(4)}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
             </CardContent>
         </Card>
     </div>
