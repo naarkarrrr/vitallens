@@ -1,20 +1,15 @@
-<<<<<<< HEAD
-📌 VitalLens Ai
-AI-Augmented Hospital Management System
-=======
+
 # 📌 **HMS-Core Enhanced**
->>>>>>> b97c529cecbc3a8c91ac7c4f5829001351799f1a
 
 ### *AI-Augmented Hospital Management System*
 
 Built for **MumbaiHacks 2025**
 
-<<<<<<< HEAD
+
 VitalLens Ai is an enterprise-grade Hospital Management System designed with AI assistance, clinical intelligence, scalable Firestore architecture, and wellness-oriented D2C features.
 This system is built using Firebase Studio, React + Tailwind, Cloud Functions, and Firestore.
 =======
 ---
->>>>>>> b97c529cecbc3a8c91ac7c4f5829001351799f1a
 
 ## 🚀 Overview
 
@@ -24,6 +19,11 @@ This system is built using **Firebase Studio**, React + Tailwind, Cloud Function
 The platform can manage patients, encounters, beds, inventory, prescriptions, labs, staff, insurance, billing, and much more — while providing **AI-powered forecasting, recommendations, and automation**.
 
 This version includes automated data ingestion from real synthetic healthcare datasets to power forecasting, dashboards, and analytics.
+
+---
+## 🚀 Live Hosted-URL
+
+**Hosted on Netlify** : https://vitallensai.netlify.app/admin_home
 
 ---
 
