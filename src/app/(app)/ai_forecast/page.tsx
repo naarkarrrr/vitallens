@@ -1,6 +1,6 @@
 'use client';
 
-import { BarChart, LineChart } from "lucide-react"
+import { BarChart, LineChart as LineChartIcon } from "lucide-react"
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart as BarChartComponent, Line, LineChart as LineChartComponent, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart as BarChartComponent, Line, LineChart as LineChartComponent, CartesianGrid, XAxis, YAxis, Legend } from "recharts"
 
 const admissionData = [
     { date: "Mon", admissions: 12 },
@@ -33,6 +33,19 @@ const bedShortageData = [
     { month: "May", shortage: 5 },
     { month: "Jun", shortage: 3 },
 ]
+
+const monthlyAdmissionTrendData = [
+    { month: "April", "Average Patients": 72.7 },
+    { month: "May", "Average Patients": 73.6 },
+    { month: "June", "Average Patients": 74.3 },
+    { month: "July", "Average Patients": 75.2 },
+    { month: "August", "Average Patients": 75.7 },
+    { month: "September", "Average Patients": 74.2 },
+    { month: "October", "Average Patients": 75.4 },
+    { month: "November", "Average Patients": 73.8 },
+    { month: "December", "Average Patients": 74.9 },
+]
+
 
 export default function AIForecastPage() {
   return (
@@ -81,6 +94,24 @@ export default function AIForecastPage() {
                 </CardContent>
             </Card>
         </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Monthly Patient Admission Trend</CardTitle>
+                <CardDescription>Historical analysis of average patient admissions per month.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <ChartContainer config={{}} className="h-[350px] w-full">
+                    <LineChartComponent data={monthlyAdmissionTrendData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis domain={[72, 76]} tickCount={5} />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <Legend />
+                        <Line type="monotone" dataKey="Average Patients" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} />
+                    </LineChartComponent>
+                </ChartContainer>
+            </CardContent>
+        </Card>
     </div>
   )
 }
