@@ -11,6 +11,9 @@ import {
     Package2,
     Search,
     Users,
+    AlertTriangle,
+    PackageWarning,
+    Building
   } from "lucide-react"
   
   import {
@@ -37,7 +40,20 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import Link from "next/link"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { inventory } from "@/lib/placeholder-data"
   
+  const bedOccupancyData = [
+    { name: "Cardiology", occupied: 8, total: 10 },
+    { name: "Pediatrics", occupied: 12, total: 15 },
+    { name: "ICU", occupied: 5, total: 6 },
+    { name: "General", occupied: 25, total: 30 },
+    { name: "Orthopedics", occupied: 10, total: 12 },
+  ]
+
+  const lowStockItems = inventory.filter(item => item.quantity_available < item.reorder_level).slice(0, 3);
+
+
   export default function AdminHomePage() {
     return (
         <div className="flex w-full flex-col">
@@ -160,7 +176,7 @@ import Link from "next/link"
                         <TableCell className="hidden xl:table-column">
                           ER
                         </TableCell>
-                        <TableCell className="hidden xl:table-column">
+                        <TableCell className="hidden xl-table-column">
                           <Badge className="text-xs" variant="outline">
                             Admitted
                           </Badge>
@@ -176,39 +192,78 @@ import Link from "next/link"
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Recent Admissions</CardTitle>
+                  <CardTitle>System Alerts</CardTitle>
+                  <CardDescription>AI-driven and operational alerts requiring attention.</CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-8">
-                  <div className="flex items-center gap-4">
-                    <Avatar className="hidden h-9 w-9 sm:flex">
-                      <AvatarImage data-ai-hint="person avatar" src="https://picsum.photos/seed/p1/100/100" alt="Avatar" />
-                      <AvatarFallback>OM</AvatarFallback>
-                    </Avatar>
+                <CardContent className="grid gap-4">
+                  <div className="flex items-center gap-4 p-3 rounded-md bg-yellow-50 border border-yellow-200">
+                    <AlertTriangle className="h-5 w-5 text-yellow-600" />
                     <div className="grid gap-1">
-                      <p className="text-sm font-medium leading-none">
-                        Olivia Martin
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        olivia.martin@email.com
-                      </p>
+                      <p className="text-sm font-medium">High-Risk Patient Detected</p>
+                      <p className="text-xs text-muted-foreground">Patient PAT001 flagged by decision engine.</p>
                     </div>
-                    <div className="ml-auto font-medium">Ward: General</div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <Avatar className="hidden h-9 w-9 sm:flex">
-                      <AvatarImage data-ai-hint="person avatar" src="https://picsum.photos/seed/p2/100/100" alt="Avatar" />
-                      <AvatarFallback>JL</AvatarFallback>
-                    </Avatar>
+                  <div className="flex items-center gap-4 p-3 rounded-md bg-red-50 border border-red-200">
+                    <Bed className="h-5 w-5 text-red-600" />
                     <div className="grid gap-1">
-                      <p className="text-sm font-medium leading-none">
-                        Jackson Lee
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        jackson.lee@email.com
-                      </p>
+                      <p className="text-sm font-medium">Bed Shortage Predicted</p>
+                      <p className="text-xs text-muted-foreground">Forecast indicates 95% occupancy in 48h.</p>
                     </div>
-                    <div className="ml-auto font-medium">Ward: ICU</div>
                   </div>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Bed Occupancy by Ward</CardTitle>
+                  <CardDescription>Live view of bed allocation across major wards.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={bedOccupancyData} layout="vertical" margin={{ left: 10 }}>
+                      <XAxis type="number" hide />
+                      <YAxis dataKey="name" type="category" stroke="hsl(var(--foreground))" axisLine={false} tickLine={false} />
+                      <Bar dataKey="occupied" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+               <Card className="xl:col-span-2">
+                <CardHeader>
+                  <CardTitle>Pharmacy & Inventory Watchlist</CardTitle>
+                  <CardDescription>Items that are running low and require reordering.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Item Name</TableHead>
+                        <TableHead>Quantity Left</TableHead>
+                        <TableHead>Reorder Level</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {lowStockItems.map(item => (
+                        <TableRow key={item.itemId}>
+                          <TableCell className="font-medium flex items-center gap-2">
+                            <PackageWarning className="h-4 w-4 text-destructive" />
+                            {item.item_name}
+                          </TableCell>
+                          <TableCell>{item.quantity_available}</TableCell>
+                          <TableCell>{item.reorder_level}</TableCell>
+                          <TableCell className="text-right">
+                             <Button asChild size="sm" variant="outline">
+                              <Link href="/inventory_orders">
+                                Reorder
+                              </Link>
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </CardContent>
               </Card>
             </div>
