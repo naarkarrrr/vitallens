@@ -1,7 +1,7 @@
 
 'use client';
 
-import { BarChart, LineChart as LineChartIcon } from "lucide-react"
+import { BarChart, LineChart as LineChartIcon, CheckCircle } from "lucide-react"
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart as BarChartComponent, Line, LineChart as LineChartComponent, CartesianGrid, XAxis, YAxis, Legend } from "recharts"
+import { Bar, BarChart as BarChartComponent, Line, LineChart as LineChartComponent, CartesianGrid, XAxis, YAxis, Legend, Tooltip } from "recharts"
 import { cn } from "@/lib/utils";
 
 const admissionData = [
@@ -74,6 +74,19 @@ const correlationData = {
       [0.00095, -0.0031, 0.0098, -0.0072, 0.0031, 1.0],
     ],
 };
+
+const icuPredictionData = [
+    { index: 0, actual: 4, predicted: 5 }, { index: 5, actual: 6, predicted: 7 },
+    { index: 10, actual: 5, predicted: 4 }, { index: 15, actual: 8, predicted: 7 },
+    { index: 20, actual: 3, predicted: 3 }, { index: 25, actual: 7, predicted: 6 },
+    { index: 30, actual: 4, predicted: 5 }, { index: 35, actual: 5, predicted: 4 },
+    { index: 40, actual: 6, predicted: 6 }, { index: 45, actual: 2, predicted: 3 },
+    { index: 50, actual: 5, predicted: 4 }, { index: 55, actual: 1, predicted: 2 },
+    { index: 60, actual: 9, predicted: 8 }, { index: 65, actual: 5, predicted: 6 },
+    { index: 70, actual: 7, predicted: 7 }, { index: 75, actual: 2, predicted: 3 },
+    { index: 80, actual: 4, predicted: 5 }, { index: 85, actual: 9, predicted: 8 },
+    { index: 90, actual: 3, predicted: 2 }, { index: 95, actual: 4, predicted: 3 },
+];
 
 const getBackgroundColor = (value: number) => {
     if (value >= 0.8) return 'bg-blue-900 text-white';
@@ -128,6 +141,29 @@ export default function AIForecastPage() {
                             <ChartTooltip content={<ChartTooltipContent />} />
                             <Bar dataKey="shortage" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                         </BarChartComponent>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
+        </div>
+        <div className="grid md:grid-cols-1 gap-6">
+            <Card>
+                <CardHeader>
+                    <CardTitle>ICU Patient Prediction</CardTitle>
+                    <CardDescription className="flex items-center gap-2">
+                       <CheckCircle className="h-4 w-4 text-green-500" /> Model Accuracy: 79.32%
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <ChartContainer config={{}} className="h-[350px] w-full">
+                        <LineChartComponent data={icuPredictionData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="index" label={{ value: "Test Sample Index", position: 'insideBottom', offset: -5 }} />
+                            <YAxis label={{ value: 'ICU Patients', angle: -90, position: 'insideLeft' }} />
+                            <Tooltip content={<ChartTooltipContent />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="actual" name="Actual ICU" stroke="#007bff" strokeWidth={2} />
+                            <Line type="monotone" dataKey="predicted" name="Predicted ICU" stroke="#ffa500" strokeWidth={2} />
+                        </LineChartComponent>
                     </ChartContainer>
                 </CardContent>
             </Card>
