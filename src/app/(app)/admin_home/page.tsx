@@ -12,7 +12,7 @@ import {
     Search,
     Users,
     AlertTriangle,
-    PackageWarning,
+    ShieldAlert,
     Building
   } from "lucide-react"
   
@@ -248,7 +248,7 @@ import { inventory } from "@/lib/placeholder-data"
                       {lowStockItems.map(item => (
                         <TableRow key={item.itemId}>
                           <TableCell className="font-medium flex items-center gap-2">
-                            <PackageWarning className="h-4 w-4 text-destructive" />
+                            <ShieldAlert className="h-4 w-4 text-destructive" />
                             {item.item_name}
                           </TableCell>
                           <TableCell>{item.quantity_available}</TableCell>
