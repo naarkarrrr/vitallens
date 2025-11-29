@@ -35,8 +35,9 @@ type EnvironmentFactor = {
 };
 
 const initialData: EnvironmentFactor[] = [
-    { id: '1', date: '2024-07-29', festival: 'None', pollution_index: 150, temperature_C: 32, rainfall_mm: 5, disease_alert: 'High Dengue Risk', predicted_spike_factor: 1.2 },
-    { id: '2', date: '2024-07-30', festival: 'None', pollution_index: 155, temperature_C: 33, rainfall_mm: 2, disease_alert: 'High Dengue Risk', predicted_spike_factor: 1.3 },
+    { id: '1', date: '2024-10-25', festival: 'Diwali', pollution_index: 350, temperature_C: 28, rainfall_mm: 0, disease_alert: 'High Respiratory Risk', predicted_spike_factor: 1.8 },
+    { id: '2', date: '2024-07-29', festival: 'None', pollution_index: 150, temperature_C: 32, rainfall_mm: 5, disease_alert: 'High Dengue Risk', predicted_spike_factor: 1.2 },
+    { id: '3', date: '2024-07-30', festival: 'None', pollution_index: 155, temperature_C: 33, rainfall_mm: 2, disease_alert: 'High Dengue Risk', predicted_spike_factor: 1.3 },
 ];
 
 const initialFormState = {
@@ -87,7 +88,7 @@ export default function EnvironmentFactorsPage() {
         <CardHeader>
           <CardTitle>Environmental Factors</CardTitle>
           <CardDescription>
-            Manage environmental and external factors for disease outbreak forecasting.
+            Manage environmental and external factors like festivals and pollution for disease outbreak forecasting.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -139,6 +140,7 @@ export default function EnvironmentFactorsPage() {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Date</TableHead>
+                        <TableHead>Festival</TableHead>
                         <TableHead>AQI</TableHead>
                         <TableHead>Temperature</TableHead>
                         <TableHead>Disease Alert</TableHead>
@@ -147,8 +149,9 @@ export default function EnvironmentFactorsPage() {
                 </TableHeader>
                 <TableBody>
                     {factors.map((factor) => (
-                        <TableRow key={factor.id}>
+                        <TableRow key={factor.id} className={factor.festival !== 'None' ? 'bg-blue-50' : ''}>
                             <TableCell>{factor.date}</TableCell>
+                            <TableCell className="font-medium">{factor.festival}</TableCell>
                             <TableCell>{factor.pollution_index}</TableCell>
                             <TableCell>{factor.temperature_C}°C</TableCell>
                             <TableCell>{factor.disease_alert}</TableCell>

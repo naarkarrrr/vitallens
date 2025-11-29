@@ -13,7 +13,8 @@ import {
     Users,
     AlertTriangle,
     ShieldAlert,
-    Building
+    Building,
+    CalendarCheck
   } from "lucide-react"
   
   import {
@@ -196,6 +197,13 @@ import { inventory } from "@/lib/placeholder-data"
                   <CardDescription>AI-driven and operational alerts requiring attention.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4">
+                  <div className="flex items-center gap-4 p-3 rounded-md bg-blue-50 border border-blue-200">
+                    <CalendarCheck className="h-5 w-5 text-blue-600" />
+                    <div className="grid gap-1">
+                      <p className="text-sm font-medium">Diwali Surge Prediction</p>
+                      <p className="text-xs text-muted-foreground">AI forecasts a 30% rise in respiratory cases. Review staffing.</p>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-4 p-3 rounded-md bg-yellow-50 border border-yellow-200">
                     <AlertTriangle className="h-5 w-5 text-yellow-600" />
                     <div className="grid gap-1">
