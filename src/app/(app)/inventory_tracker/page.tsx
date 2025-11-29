@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -20,11 +21,10 @@ import { inventoryOrders } from '@/lib/placeholder-data';
 import type { InventoryOrder } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import { Separator } from '@/components/ui/separator';
 
 export default function InventoryTrackerPage() {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(inventoryOrders[0]?.orderId || null);
-  const [order, setOrder] = useState<InventoryOrder | null>(inventoryOrders[0] || null);
+  const [order, setOrder] = useState<InventoryOrder | null>(inventoryOrders.find(o => o.orderId === selectedOrderId) || null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -44,23 +44,28 @@ export default function InventoryTrackerPage() {
                     if (nextIndex < prevOrder.stages_list.length) {
                         const newStage = prevOrder.stages_list[nextIndex];
                         const isDelivered = newStage === 'Delivered';
-                        if (isDelivered) {
-                            toast({
-                                title: 'Delivery Successful!',
-                                description: `Order ${prevOrder.orderId} for ${prevOrder.item_name} has been delivered.`,
-                                action: <PackageCheck className="h-5 w-5 text-green-500" />
-                            });
-                            clearInterval(interval);
-                        }
                         return { ...prevOrder, current_stage: newStage, status: isDelivered ? 'delivered' : 'in-progress' };
                     }
+                    clearInterval(interval);
                     return prevOrder;
                 });
             }, 5000); // Progress every 5 seconds
             return () => clearInterval(interval);
         }
     }
-  }, [order, toast]);
+  }, [order]);
+
+  // Effect to show toast notification when delivery is complete
+  useEffect(() => {
+    if (order?.current_stage === 'Delivered' && order.status === 'delivered') {
+      toast({
+        title: 'Delivery Successful!',
+        description: `Order ${order.orderId} for ${order.item_name} has been delivered.`,
+        action: <PackageCheck className="h-5 w-5 text-green-500" />
+      });
+    }
+  }, [order?.current_stage, order?.status, order?.orderId, order?.item_name, toast]);
+
 
   const getStageIcon = (stage: string, currentStage: string, stages: string[]) => {
     const stageIndex = stages.indexOf(stage);
