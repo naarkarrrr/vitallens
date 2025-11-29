@@ -1,3 +1,5 @@
+
+'use client';
 import Link from "next/link"
 import { PlusCircle } from "lucide-react"
 
@@ -61,7 +63,7 @@ export default function StaffListPage() {
                 <TableRow key={member.staffId}>
                     <TableCell className="hidden sm:table-cell">
                         <Avatar className="h-9 w-9">
-                            <AvatarImage src={`https://picsum.photos/seed/${member.staffId}/100/100`} alt={member.name} />
+                            <AvatarImage src={`https://picsum.photos/seed/${member.staffId}/100/100`} alt={member.name} data-ai-hint="person avatar" />
                             <AvatarFallback>{member.name.substring(0,2)}</AvatarFallback>
                         </Avatar>
                     </TableCell>

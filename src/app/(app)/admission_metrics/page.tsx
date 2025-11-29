@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 type AdmissionMetric = {
   id: string;
@@ -42,10 +43,7 @@ const initialData: AdmissionMetric[] = [
     { id: '2', admission_id: 'ADM002', patient_id: 'PAT002', admission_date: '2024-07-02', discharge_date: '2024-07-10', diagnosis: 'Myocardial Infarction', ward_type: 'ICU', ICU_required: true, LOS_days: 8, oxygen_liters_used: 250, medication_units_used: 300 },
 ];
 
-
-export default function AdmissionMetricsPage() {
-  const [metrics, setMetrics] = useState<AdmissionMetric[]>(initialData);
-  const [formData, setFormData] = useState<Omit<AdmissionMetric, 'id'>>({
+const initialFormState = {
     admission_id: '',
     patient_id: '',
     admission_date: '',
@@ -56,7 +54,12 @@ export default function AdmissionMetricsPage() {
     LOS_days: 0,
     oxygen_liters_used: 0,
     medication_units_used: 0
-  });
+};
+
+export default function AdmissionMetricsPage() {
+  const [metrics, setMetrics] = useState<AdmissionMetric[]>(initialData);
+  const [formData, setFormData] = useState<Omit<AdmissionMetric, 'id'>>(initialFormState);
+  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, type, checked } = e.target;
@@ -68,12 +71,26 @@ export default function AdmissionMetricsPage() {
 
   const handleAddMetric = () => {
     // In a real app, this would interact with a backend/DB.
-    const newMetric: AdmissionMetric = { ...formData, id: (metrics.length + 1).toString() };
+    const newMetric: AdmissionMetric = { ...formData, id: `METRIC_${(metrics.length + 1)}` };
     setMetrics(prev => [...prev, newMetric]);
+    toast({
+        title: 'Metric Added',
+        description: `New admission metric ${newMetric.admission_id} has been successfully added.`,
+    });
+    setFormData(initialFormState);
+  };
+  
+  const handleDeleteMetric = (id: string) => {
+    setMetrics(prev => prev.filter(metric => metric.id !== id));
+    toast({
+        variant: 'destructive',
+        title: 'Metric Deleted',
+        description: `The admission metric has been deleted.`,
+    });
   };
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 p-4 sm:p-6 md:p-8">
       <Card>
         <CardHeader>
           <CardTitle>Admission Metrics</CardTitle>
@@ -86,11 +103,11 @@ export default function AdmissionMetricsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="grid gap-2">
                     <Label htmlFor="admission_id">Admission ID</Label>
-                    <Input id="admission_id" value={formData.admission_id} onChange={handleInputChange} />
+                    <Input id="admission_id" placeholder="e.g., ADM003" value={formData.admission_id} onChange={handleInputChange} />
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="patient_id">Patient ID</Label>
-                    <Input id="patient_id" value={formData.patient_id} onChange={handleInputChange} />
+                    <Input id="patient_id" placeholder="e.g., PAT003" value={formData.patient_id} onChange={handleInputChange} />
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="admission_date">Admission Date</Label>
@@ -102,11 +119,11 @@ export default function AdmissionMetricsPage() {
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="diagnosis">Diagnosis</Label>
-                    <Input id="diagnosis" value={formData.diagnosis} onChange={handleInputChange} />
+                    <Input id="diagnosis" placeholder="e.g., Influenza" value={formData.diagnosis} onChange={handleInputChange} />
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="ward_type">Ward Type</Label>
-                    <Input id="ward_type" value={formData.ward_type} onChange={handleInputChange} />
+                    <Input id="ward_type" placeholder="e.g., General" value={formData.ward_type} onChange={handleInputChange} />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="LOS_days">LOS (Days)</Label>
@@ -146,7 +163,7 @@ export default function AdmissionMetricsPage() {
                         <TableHead>Diagnosis</TableHead>
                         <TableHead>LOS</TableHead>
                         <TableHead>ICU</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -157,9 +174,9 @@ export default function AdmissionMetricsPage() {
                             <TableCell>{metric.diagnosis}</TableCell>
                             <TableCell>{metric.LOS_days}</TableCell>
                             <TableCell>{metric.ICU_required ? 'Yes' : 'No'}</TableCell>
-                            <TableCell className="flex gap-2">
+                            <TableCell className="flex gap-2 justify-end">
                                 <Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button>
-                                <Button variant="destructive" size="icon"><Trash2 className="h-4 w-4" /></Button>
+                                <Button variant="destructive" size="icon" onClick={() => handleDeleteMetric(metric.id)}><Trash2 className="h-4 w-4" /></Button>
                             </TableCell>
                         </TableRow>
                     ))}

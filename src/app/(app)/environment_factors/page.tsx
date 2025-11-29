@@ -21,6 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 type EnvironmentFactor = {
     id: string;
@@ -38,9 +39,7 @@ const initialData: EnvironmentFactor[] = [
     { id: '2', date: '2024-07-30', festival: 'None', pollution_index: 155, temperature_C: 33, rainfall_mm: 2, disease_alert: 'High Dengue Risk', predicted_spike_factor: 1.3 },
 ];
 
-export default function EnvironmentFactorsPage() {
-  const [factors, setFactors] = useState<EnvironmentFactor[]>(initialData);
-  const [formData, setFormData] = useState<Omit<EnvironmentFactor, 'id'>>({
+const initialFormState = {
     date: '',
     festival: '',
     pollution_index: 0,
@@ -48,7 +47,12 @@ export default function EnvironmentFactorsPage() {
     rainfall_mm: 0,
     disease_alert: '',
     predicted_spike_factor: 0,
-  });
+};
+
+export default function EnvironmentFactorsPage() {
+  const [factors, setFactors] = useState<EnvironmentFactor[]>(initialData);
+  const [formData, setFormData] = useState<Omit<EnvironmentFactor, 'id'>>(initialFormState);
+  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value, type } = e.target;
@@ -59,12 +63,26 @@ export default function EnvironmentFactorsPage() {
   };
 
   const handleAddFactor = () => {
-    const newFactor: EnvironmentFactor = { ...formData, id: (factors.length + 1).toString() };
+    const newFactor: EnvironmentFactor = { ...formData, id: `FACTOR_${(factors.length + 1)}` };
     setFactors(prev => [...prev, newFactor]);
+    toast({
+        title: 'Factor Added',
+        description: `New environmental factor for ${newFactor.date} has been added.`,
+    });
+    setFormData(initialFormState);
+  };
+  
+  const handleDeleteFactor = (id: string) => {
+    setFactors(prev => prev.filter(factor => factor.id !== id));
+    toast({
+        variant: 'destructive',
+        title: 'Factor Deleted',
+        description: `The environmental factor has been deleted.`,
+    });
   };
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 p-4 sm:p-6 md:p-8">
       <Card>
         <CardHeader>
           <CardTitle>Environmental Factors</CardTitle>
@@ -124,7 +142,7 @@ export default function EnvironmentFactorsPage() {
                         <TableHead>AQI</TableHead>
                         <TableHead>Temperature</TableHead>
                         <TableHead>Disease Alert</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -134,9 +152,9 @@ export default function EnvironmentFactorsPage() {
                             <TableCell>{factor.pollution_index}</TableCell>
                             <TableCell>{factor.temperature_C}°C</TableCell>
                             <TableCell>{factor.disease_alert}</TableCell>
-                            <TableCell className="flex gap-2">
+                            <TableCell className="flex gap-2 justify-end">
                                 <Button variant="outline" size="icon"><Edit className="h-4 w-4" /></Button>
-                                <Button variant="destructive" size="icon"><Trash2 className="h-4 w-4" /></Button>
+                                <Button variant="destructive" size="icon" onClick={() => handleDeleteFactor(factor.id)}><Trash2 className="h-4 w-4" /></Button>
                             </TableCell>
                         </TableRow>
                     ))}

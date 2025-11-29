@@ -1,3 +1,5 @@
+
+'use client';
 import {
     Activity,
     ArrowUpRight,
@@ -179,7 +181,7 @@ import Link from "next/link"
                 <CardContent className="grid gap-8">
                   <div className="flex items-center gap-4">
                     <Avatar className="hidden h-9 w-9 sm:flex">
-                      <AvatarImage src="https://picsum.photos/seed/p1/100/100" alt="Avatar" />
+                      <AvatarImage data-ai-hint="person avatar" src="https://picsum.photos/seed/p1/100/100" alt="Avatar" />
                       <AvatarFallback>OM</AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
@@ -194,7 +196,7 @@ import Link from "next/link"
                   </div>
                   <div className="flex items-center gap-4">
                     <Avatar className="hidden h-9 w-9 sm:flex">
-                      <AvatarImage src="https://picsum.photos/seed/p2/100/100" alt="Avatar" />
+                      <AvatarImage data-ai-hint="person avatar" src="https://picsum.photos/seed/p2/100/100" alt="Avatar" />
                       <AvatarFallback>JL</AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
