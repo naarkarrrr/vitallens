@@ -1,4 +1,4 @@
-import type { Patient, Encounter, Vitals, Diagnosis, Lab, Prescription, Bed, Staff, Equipment, InventoryItem } from './types';
+import type { Patient, Encounter, Vitals, Diagnosis, Lab, Prescription, Bed, Staff, Equipment, InventoryItem, InventoryOrder } from './types';
 
 export const patients: Patient[] = [
   {
@@ -125,4 +125,29 @@ export const equipment: Equipment[] = [
 export const inventory: InventoryItem[] = [
   { itemId: 'INV001', item_name: 'Aspirin 81mg', quantity_available: 5000, reorder_level: 1000, supplier_id: 'SUP01', min_required: 500, lead_time_days: 7 },
   { itemId: 'INV002', item_name: 'Sterile Gauze', quantity_available: 800, reorder_level: 1000, supplier_id: 'SUP02', min_required: 200, lead_time_days: 5 },
+  { itemId: 'INV003', item_name: 'Amoxicillin 500mg', quantity_available: 1200, reorder_level: 500, supplier_id: 'SUP01', min_required: 200, lead_time_days: 3 },
+  { itemId: 'INV004', item_name: 'Ibuprofen 200mg', quantity_available: 300, reorder_level: 1000, supplier_id: 'SUP02', min_required: 400, lead_time_days: 5 },
+];
+
+export const inventoryOrders: InventoryOrder[] = [
+    {
+      orderId: 'ORD001',
+      item_name: 'Ibuprofen 200mg',
+      quantity_ordered: 2000,
+      order_date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+      expected_delivery_time: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days from now
+      current_stage: 'Dispatched',
+      stages_list: ["Order Placed", "Supplier Processing", "Dispatched", "In Transit", "Arriving Soon", "Delivered"],
+      status: 'in-progress'
+    },
+    {
+      orderId: 'ORD002',
+      item_name: 'Sterile Gauze',
+      quantity_ordered: 500,
+      order_date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+      expected_delivery_time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // yesterday
+      current_stage: 'Delivered',
+      stages_list: ["Order Placed", "Supplier Processing", "Dispatched", "In Transit", "Arriving Soon", "Delivered"],
+      status: 'delivered'
+    }
 ];

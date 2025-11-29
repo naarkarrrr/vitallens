@@ -107,3 +107,14 @@ export type InventoryItem = {
   min_required: number;
   lead_time_days: number;
 };
+
+export type InventoryOrder = {
+  orderId: string;
+  item_name: string;
+  quantity_ordered: number;
+  order_date: string;
+  expected_delivery_time: string;
+  current_stage: string;
+  stages_list: string[];
+  status: 'pending' | 'in-progress' | 'delivered';
+};

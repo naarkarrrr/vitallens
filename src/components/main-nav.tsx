@@ -40,6 +40,8 @@ import {
   User,
   Thermometer,
   CloudRain,
+  ShoppingCart,
+  Map,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -102,10 +104,13 @@ const navSections = [
         },
         {
             title: 'Pharmacy & Inventory',
+            defaultOpen: true,
             links: [
                 { href: '/inventory_list', label: 'Inventory', icon: Package },
                 { href: '/inventory_edit', label: 'Edit Inventory', icon: Package },
                 { href: '/pharmacy_stock_check', label: 'Stock Check', icon: ClipboardList },
+                { href: '/inventory_orders', label: 'Place Orders', icon: ShoppingCart },
+                { href: '/inventory_tracker', label: 'Track Orders', icon: Map },
             ]
         }
     ]
